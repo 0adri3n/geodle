@@ -9,7 +9,7 @@ app.secret_key = "geodle"
 
 @app.route('/')
 def index(): 
-    f = open("static/data/data.json", "r")
+    f = open("static/data/data.json", "r", encoding="utf-8")
     pays = json.loads(f.read())
     f.close()
     l = 0
