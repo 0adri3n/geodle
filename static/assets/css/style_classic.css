@@ -40,3 +40,11 @@
 #guesses tbody tr {
     background-color: #f2f2f2; /* Couleur de fond lors du survol de la souris */
 }
+
+.green-bg {
+    background-color: rgb(0, 209, 0);
+}
+
+.red-bg {
+    background-color: rgb(245, 49, 49);
+}

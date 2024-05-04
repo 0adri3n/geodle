@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template, url_for, request, flash, redirect, session
 
 import json
+import yaml
 
 app = Flask(__name__)
 app.secret_key = "geodle"
@@ -10,6 +11,11 @@ f = open("static/data/data.json", "r", encoding="utf-8")
 countries = json.loads(f.read())
 names = [i["name"] for i in countries]
 f.close()
+
+daily_f = open("static/config/daily.yaml", "r", encoding="utf-8")
+daily = yaml.safe_load(daily_f)
+daily_f.close()
+classic_country = daily["classic"]
 
 
 
@@ -53,6 +59,7 @@ def index():
 def classic():
 
     global names
+    global classic_country
 
     if request.method == "POST" :
 
@@ -62,14 +69,11 @@ def classic():
 
         if infos not in session["guesses"] :
             tries.append(infos)
-            session["guesses"] = tries
-        else :
-            session["guesses"] = tries
-        print(session["guesses"])
+
+        session["guesses"] = tries
 
     headers = ["Name",'Calling code', 'Continent', "Population", "Area", "UTC Time code"]
-
-    return render_template('classic.html', names=names, headers=headers)
+    return render_template('classic.html', names=names, headers=headers, classic_country=classic_country)
 
 
 

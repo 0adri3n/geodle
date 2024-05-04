@@ -39,27 +39,68 @@
     </div>
 
     <br>
+    <br>
+    <br>
 
-    {% if session["guesses"] %}
+    {% if session["guesses"] and classic_country %}
     <table id="guesses">
         <thead>
             <tr>
                 {% for header in headers %}
-                <th>{{header}}</th>
+                <th>{{ header }}</th>
                 {% endfor %}
             </tr>
         </thead>
         <tbody>
             {% for object in session["guesses"] %} 
-            <tr>
-                {% for item in object %}
-                <td>{{item}}</td>
-                {% endfor %}
-            </tr>
+                <tr>
+                    {% for item in object %}
+                        {% if item != '-' %}
+                            <td {% if loop.index0 == 0 %}
+                                {% elif item|int == classic_country[1]|int %} class="green-bg" 
+                                {% elif item == classic_country[2] %} class="green-bg"
+                                {% elif item|int == classic_country[3]|int %} class="green-bg" 
+                                {% elif item|int == classic_country[4]|int %} class="green-bg" 
+                                {% elif item == classic_country[5] %} class="green-bg"
+                                {% else %} class="red-bg" 
+                                {% endif %}>
+                                {{ item }}
+                                {% if loop.index0 == 1 and item != '-' %}
+                                    {% if item|int > classic_country[1]|int %}
+                                        <i class="fas fa-arrow-up">Moins !</i>
+                                    {% elif item|int < classic_country[1]|int %}
+                                        <i class="fas fa-arrow-down">Plus !</i>
+                                    {% endif %}
+                                {% elif loop.index0 == 3 and item != '-' %}
+                                    {% if item|int > classic_country[3]|int %}
+                                        <i class="fas fa-arrow-up">Moins !</i>
+                                    {% elif item|int < classic_country[3]|int %}
+                                        <i class="fas fa-arrow-down">Plus !</i>
+                                    {% endif %}
+                                {% elif loop.index0 == 4 and item != '-' %}
+                                    {% if item|int > classic_country[4]|int %}
+                                        <i class="fas fa-arrow-down">Moins !</i>
+                                    {% elif item|int < classic_country[4]|int %}
+                                        <i class="fas fa-arrow-down">Plus !</i>
+                                    {% endif %}
+                                {% elif loop.index0 == 5 and item != '-' %}
+                                    {% if item > classic_country[5] %}
+                                        <i class="fas fa-arrow-down">Moins !</i>
+                                    {% elif item < classic_country[5] %}
+                                        <i class="fas fa-arrow-down">Plus !</i>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
             {% endfor %}
         </tbody>
     </table>
     {% endif %}
+
+
+
     
 </div>
 
