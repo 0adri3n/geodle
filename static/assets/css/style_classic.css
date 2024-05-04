@@ -1,0 +1,42 @@
+.guess-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 20px; /* Ajustez la marge supérieure selon vos besoins */
+}
+
+.guess-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px; /* Ajustez la largeur selon vos besoins */
+    outline: none; /* Supprime la bordure bleue */
+    background-color: black;
+    color: white;
+    font-size: 20px;
+}
+#guesses {
+    width: 80%; /* Ajustez la largeur selon vos besoins */
+    margin: 0 auto; /* Pour centrer le tableau */
+    border-collapse: collapse; /* Fusionner les bordures des cellules */
+}
+
+#guesses th,
+#guesses td {
+    padding: 8px; /* Espacement à l'intérieur des cellules */
+    border: 1px solid #ddd; /* Bordure entre les cellules */
+    text-align: center; /* Centrer le contenu des cellules */
+}
+
+#guesses th {
+    background-color: #f2f2f2; /* Couleur de fond pour l'en-tête du tableau */
+    color: #333; /* Couleur du texte pour l'en-tête du tableau */
+}
+
+#guesses tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Couleur de fond pour les lignes impaires */
+}
+
+#guesses tbody tr {
+    background-color: #f2f2f2; /* Couleur de fond lors du survol de la souris */
+}
