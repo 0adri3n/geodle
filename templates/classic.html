@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>geodle 🌎</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/style_classic.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/planet.css') }}" />
+    <link rel="icon" href="{{ url_for('static', filename='images/icon.ico') }}">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">   
+    </script>   
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">   
+    </script>  
+
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+    rel="stylesheet" type="text/css" />  
+
+</head>
+
+<body>
+<div class="main">
+</div>
+
+<header>
+    <div class="header-content">
+        <h1 class="site-title"><span class="geo">geo</span><span class="dle">dle</span></h1> 
+        <h2 id="welcome">Welcome to classic mode ! Try to find today's country :)</h2>       
+    </div>
+</header>
+
+<div id="content">
+    <div class="guess-container">
+        <form action="/classic" method='POST'>
+            <input name="guess" type="text" placeholder="Enter your guess here..." class="guess-input" id="tags">
+        </form>
+    </div>
+
+    <br>
+
+    {% if session["guesses"] %}
+    <table id="guesses">
+        <thead>
+            <tr>
+                {% for header in headers %}
+                <th>{{header}}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for object in session["guesses"] %} 
+            <tr>
+                {% for item in object %}
+                <td>{{item}}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    
+</div>
+
+<script> 
+    $( function() { 
+    var availableTags = [ 
+        {% for n in names %} 
+            "{{n}}", 
+        {% endfor %} 
+    ]; 
+    $( "#tags" ).autocomplete({ 
+        source: availableTags 
+    }); 
+    } ); 
+    </script> 
+
+<footer>
+    <div class="footer-content">
+        <div class="copyright">
+            <p>all rights reserved &copy; 2024 geodle</p>
+        </div>
+    </div>
+</footer>
+
+</body>
+ 
+</html>
