@@ -48,3 +48,15 @@
 .red-bg {
     background-color: rgb(245, 49, 49);
 }
+
+.no-data {
+    text-align: center;
+    color: gray;
+}
+
+.win-message{
+    text-align: center;
+    padding-top: 3vh;
+    color: green;
+    font-size: 20px;
+}

@@ -36,22 +36,13 @@ def getClassicInfo(name):
 
 @app.route('/')
 def index(): 
-    # f = open("static/data/data.json", "r", encoding="utf-8")
-    # pays = json.loads(f.read())
-    # f.close()
-    # l = 0
-    # # Parcourir chaque pays
-    # for country in pays:
-    #     l+=1
-    #     print("Nom du pays :", country["name"])
-    #     print("Capitale :", country["capital"])
-    #     print("Population :", country["population"])
-    #     print("Langues :", ", ".join([lang["name"] for lang in country["languages"]]))
-    #     print("Drapeau :", country["flag"])
-    #     print("Régions :", country["region"], "-", country["subregion"])
-    #     print("-----------------------------------------")
-    # print(l)
+
+    # Initialisation des cookies
+
     session["guesses"] = []
+    session["win"] = False
+    session["classic_tcount"] = []
+
     return render_template('index.html')
 
 
@@ -60,6 +51,8 @@ def classic():
 
     global names
     global classic_country
+
+    
 
     if request.method == "POST" :
 
@@ -71,6 +64,11 @@ def classic():
             tries.append(infos)
 
         session["guesses"] = tries
+        session["classic_tcount"] = [t[0] for t in tries]
+
+        if infos == classic_country :
+
+            session["win"] = True
 
     headers = ["Name",'Calling code', 'Continent', "Population", "Area", "UTC Time code"]
     return render_template('classic.html', names=names, headers=headers, classic_country=classic_country)

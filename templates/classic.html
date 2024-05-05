@@ -26,23 +26,25 @@
 
 <header>
     <div class="header-content">
-        <h1 class="site-title"><span class="geo">geo</span><span class="dle">dle</span></h1> 
+        <h1 class="site-title"><a href="/" class="link"><span class="geo">geo</span><span class="dle">dle</span></a></h1> 
         <h2 id="welcome">Welcome to classic mode ! Try to find today's country :)</h2>       
     </div>
 </header>
 
 <div id="content">
     <div class="guess-container">
+        {% if not session["win"]%}
         <form action="/classic" method='POST'>
             <input name="guess" type="text" placeholder="Enter your guess here..." class="guess-input" id="tags">
         </form>
+        {% endif %}
     </div>
 
     <br>
     <br>
     <br>
 
-    {% if session["guesses"] and classic_country %}
+    {% if session["guesses"] and classic_country%}
     <table id="guesses">
         <thead>
             <tr>
@@ -55,43 +57,49 @@
             {% for object in session["guesses"] %} 
                 <tr>
                     {% for item in object %}
-                        {% if item != '-' %}
+
                             <td {% if loop.index0 == 0 %}
                                 {% elif item|int == classic_country[1]|int %} class="green-bg" 
                                 {% elif item == classic_country[2] %} class="green-bg"
                                 {% elif item|int == classic_country[3]|int %} class="green-bg" 
                                 {% elif item|int == classic_country[4]|int %} class="green-bg" 
                                 {% elif item == classic_country[5] %} class="green-bg"
+                                {% elif item == '-' %} class="no-data"
                                 {% else %} class="red-bg" 
                                 {% endif %}>
-                                {{ item }}
+                                {% if item == '-' %}
+                                    ✖
+                                {% else %}
+                                    {{ item }}
+                                {% endif %}
+
                                 {% if loop.index0 == 1 and item != '-' %}
                                     {% if item|int > classic_country[1]|int %}
-                                        <i class="fas fa-arrow-up">Moins !</i>
+                                        🔽
                                     {% elif item|int < classic_country[1]|int %}
-                                        <i class="fas fa-arrow-down">Plus !</i>
+                                        🔼
                                     {% endif %}
                                 {% elif loop.index0 == 3 and item != '-' %}
                                     {% if item|int > classic_country[3]|int %}
-                                        <i class="fas fa-arrow-up">Moins !</i>
+                                        🔽
                                     {% elif item|int < classic_country[3]|int %}
-                                        <i class="fas fa-arrow-down">Plus !</i>
+                                        🔼
                                     {% endif %}
                                 {% elif loop.index0 == 4 and item != '-' %}
                                     {% if item|int > classic_country[4]|int %}
-                                        <i class="fas fa-arrow-down">Moins !</i>
+                                        🔽
                                     {% elif item|int < classic_country[4]|int %}
-                                        <i class="fas fa-arrow-down">Plus !</i>
+                                        🔼
                                     {% endif %}
                                 {% elif loop.index0 == 5 and item != '-' %}
                                     {% if item > classic_country[5] %}
-                                        <i class="fas fa-arrow-down">Moins !</i>
+                                        🔽
                                     {% elif item < classic_country[5] %}
-                                        <i class="fas fa-arrow-down">Plus !</i>
+                                        🔼
                                     {% endif %}
                                 {% endif %}
                             </td>
-                        {% endif %}
+                        
                     {% endfor %}
                 </tr>
             {% endfor %}
@@ -99,7 +107,11 @@
     </table>
     {% endif %}
 
-
+    {% if session["win"] %}
+        <div class="win-message">
+            <p>🎉 Congratulations ! You guessed the country correctly !  🎉</p>
+        </div>
+    {% endif %}
 
     
 </div>
@@ -107,8 +119,13 @@
 <script> 
     $( function() { 
     var availableTags = [ 
-        {% for n in names %} 
-            "{{n}}", 
+        {% for n in names %}
+            {% if session["classic_tcount"]%}
+                {% if n not in session["classic_tcount"]%}
+                    "{{n}}", 
+                {% endif %}
+            {% else %} "{{n}}",
+            {% endif %} 
         {% endfor %} 
     ]; 
     $( "#tags" ).autocomplete({ 
