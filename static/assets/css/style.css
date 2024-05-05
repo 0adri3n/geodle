@@ -196,6 +196,10 @@ header {
     height: auto;
 }
 
+.link{
+    text-decoration: none;
+}
+
 
 /* Ajoutez ces styles pour le footer */
 footer {
