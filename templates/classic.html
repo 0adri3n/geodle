@@ -47,6 +47,13 @@
 
     <br>
     <br>
+    {%- with messages = get_flashed_messages() %}
+	{% if messages %}
+		{% for message in messages %}
+			<p id="flashedmessage">{{ message }}</p>
+		{% endfor %}
+	{% endif %}
+	{% endwith -%}
     <br>
 
     {% if session["guesses"] and classic_country%}
@@ -127,9 +134,9 @@
         {% for n in names %}
             {% if session["classic_tcount"]%}
                 {% if n not in session["classic_tcount"]%}
-                    "{{n}}", 
+                    "{{ n }}",
                 {% endif %}
-            {% else %} "{{n}}",
+            {% else %} "{{ n }}",
             {% endif %} 
         {% endfor %} 
     ]; 

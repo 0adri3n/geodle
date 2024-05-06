@@ -694,7 +694,7 @@
     "callingCodes": [
         "1268"
     ],
-    "capital": "Saint John's",
+    "capital": "Saint Johns",
     "altSpellings": [
         "AG"
     ],
@@ -8343,7 +8343,7 @@
     "cioc": "INA"
 },
 {
-    "name": "Côte d'Ivoire",
+    "name": "Côte d Ivoire",
     "topLevelDomain": [
         ".ci"
     ],
@@ -9597,7 +9597,7 @@
     "cioc": "KGZ"
 },
 {
-    "name": "Lao People's Democratic Republic",
+    "name": "Laos Democratic Republic",
     "topLevelDomain": [
         ".la"
     ],
@@ -12918,7 +12918,7 @@
     "cioc": ""
 },
 {
-    "name": "Korea (Democratic People's Republic of)",
+    "name": "Korea (Democratic People s Republic of)",
     "topLevelDomain": [
         ".kp"
     ],

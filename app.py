@@ -80,23 +80,23 @@ def classic():
     global names
     global classic_country
 
-    
-
     if request.method == "POST" :
-
         name = request.form["guess"]
-        infos = getClassicInfo(name)
-        tries = [t for t in session["guesses"]]
+        if name in names :
+            infos = getClassicInfo(name)
+            tries = [t for t in session["guesses"]]
 
-        if infos not in session["guesses"] :
-            tries.append(infos)
+            if infos not in session["guesses"] :
+                tries.append(infos)
 
-        session["guesses"] = tries
-        session["classic_tcount"] = [t[0] for t in tries]
+            session["guesses"] = tries
+            session["classic_tcount"] = [t[0] for t in tries]
 
-        if infos == classic_country :
+            if infos == classic_country :
 
-            session["win"] = True
+                session["win"] = True
+        else:
+            flash("Please enter a correct country.")
 
     headers = ["Name",'Calling code', 'Continent', "Population", "Area", "UTC Time code"]
     return render_template('classic.html', names=names, headers=headers, classic_country=classic_country)
