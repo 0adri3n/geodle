@@ -1,5 +1,26 @@
-"classic": ['Mozambique', '258', 'Africa', 26423700, 801590, 'UTC+02:00']
-"map": ["Yemen", 15, 48, "Asia"]
-"flag": ["Myanmar", "Asia", "MM"]
-"capital": ["Papua New Guinea", "Oceania", "Port Moresby"]
-"dns": ["Slovenia", "Europe", ".si"]
+afternoon_edit: true
+capital:
+- Antigua and Barbuda
+- Americas
+- Saint Johns
+classic:
+- San Marino
+- '378'
+- Europe
+- 33005
+- 61
+- UTC+01:00
+dns:
+- Qatar
+- Asia
+- .qa
+flag:
+- Qatar
+- Asia
+- QA
+map:
+- Uganda
+- 1
+- 32
+- Africa
+morning_edit: false
