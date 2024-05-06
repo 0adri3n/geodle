@@ -6,6 +6,9 @@ import yaml
 
 import folium
 
+from datetime import datetime
+import random
+
 app = Flask(__name__)
 app.secret_key = "geodle"
 
@@ -51,7 +54,7 @@ def getFlagInfo(name):
 
 
 @app.route('/')
-def index(): 
+def index():
 
     # Initialisation des cookies
     # Classic mode
@@ -78,6 +81,8 @@ def index():
     session["map_win"] = False
     session["map_guesses"] = []
     session["map_cnames"] = []
+
+    checkTimes()
 
     return render_template('index.html')
 
@@ -254,6 +259,122 @@ def map():
     headers = ["Name", "Continent"]
 
     return render_template('map.html', names=names, headers=headers, today_marker=today_marker, iframe=iframe)
+
+def checkTimes():
+
+    global daily
+    global classic_country
+    global today_flag
+    global today_capital
+    global today_dns
+    global today_marker
+
+    # Récupérer l'heure actuelle
+    current_time = datetime.now().time()
+
+    # Extraire l'heure de l'objet time
+    current_hour = current_time.hour
+
+    # Vérifier si l'heure actuelle est le matin (minuit à midi)
+    if 0 <= current_hour < 12:
+        if not daily["morning_edit"]:
+            with open("static/config/daily.yaml", "r", encoding="utf-8") as yaml_file:
+                data = yaml.safe_load(yaml_file)
+
+            # Modifier la valeur
+            data["morning_edit"] = True
+            data["afternoon_edit"] = False
+
+            # Sauvegarder les modifications dans le fichier YAML
+            with open("static/config/daily.yaml", "w", encoding="utf-8") as yaml_file:
+                yaml.dump(data, yaml_file)
+
+            daily_f = open("static/config/daily.yaml", "r", encoding="utf-8")
+            daily = yaml.safe_load(daily_f)
+            daily_f.close()
+            classic_country = daily["classic"]
+            today_flag = daily["flag"]
+            today_capital = daily["capital"]
+            today_dns = daily["dns"]
+            today_marker = daily["map"]
+
+            changeGuesses()
+
+    # Vérifier si l'heure actuelle est l'après-midi (midi à 23h59)
+    elif 12 <= current_hour <= 23:
+        if not daily["afternoon_edit"]:
+            with open("static/config/daily.yaml", "r", encoding="utf-8") as yaml_file:
+                data = yaml.safe_load(yaml_file)
+
+            # Modifier la valeur
+            data["morning_edit"] = False
+            data["afternoon_edit"] = True
+
+            # Sauvegarder les modifications dans le fichier YAML
+            with open("static/config/daily.yaml", "w", encoding="utf-8") as yaml_file:
+                yaml.dump(data, yaml_file)
+
+            daily_f = open("static/config/daily.yaml", "r", encoding="utf-8")
+            daily = yaml.safe_load(daily_f)
+            daily_f.close()
+            classic_country = daily["classic"]
+            today_flag = daily["flag"]
+            today_capital = daily["capital"]
+            today_dns = daily["dns"]
+            today_marker = daily["map"]
+    
+            changeGuesses()
+
+
+def changeGuesses():
+
+    global daily
+    global classic_country
+    global today_flag
+    global today_capital
+    global today_dns
+    global today_marker
+
+    # Charger le fichier JSON
+    with open("static/data/data.json", "r", encoding="utf-8") as json_file:
+        data = json.load(json_file)
+
+    random_indexes = [random.randint(0, 249) for i in range(5)]
+
+    new_classic = data[random_indexes[0]]
+    new_classic = [new_classic["name"], new_classic["callingCodes"][0], new_classic["region"], new_classic["population"], new_classic["area"], new_classic["timezones"][0]]
+    new_capital = data[random_indexes[1]]
+    new_capital = [new_capital["name"], new_capital["region"], new_capital["capital"]]
+    new_dns = data[random_indexes[2]]
+    new_dns = [new_dns["name"], new_dns["region"], new_dns["topLevelDomain"][0]]
+    new_flag = data[random_indexes[3]]
+    new_flag = [new_flag["name"], new_flag["region"], new_flag["alpha2Code"]]
+    new_map = data[random_indexes[4]]
+    new_map = [new_map["name"], new_map["latlng"][0], new_map["latlng"][1], new_map["region"]]
+
+    with open("static/config/daily.yaml", "r", encoding="utf-8") as yaml_file:
+        data = yaml.safe_load(yaml_file)
+
+    # Modifier la valeur
+    data["capital"] = new_capital
+    data["classic"] = new_classic
+    data["dns"] = new_dns
+    data["flag"] = new_flag
+    data["map"] = new_map
+
+    # Sauvegarder les modifications dans le fichier YAML
+    with open("static/config/daily.yaml", "w", encoding="utf-8") as yaml_file:
+        yaml.dump(data, yaml_file)
+
+    daily_f = open("static/config/daily.yaml", "r", encoding="utf-8")
+    daily = yaml.safe_load(daily_f)
+    daily_f.close()
+    classic_country = daily["classic"]
+    today_flag = daily["flag"]
+    today_capital = daily["capital"]
+    today_dns = daily["dns"]
+    today_marker = daily["map"]
+
 
 if __name__ == '__main__': 
 
