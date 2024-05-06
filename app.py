@@ -110,18 +110,21 @@ def flag():
     if request.method == "POST" :
 
         name = request.form["guess"]
-        infos = getFlagInfo(name)
-        tries = [t for t in session["flag_guesses"]]
+        if name in names :
+            infos = getFlagInfo(name)
+            tries = [t for t in session["flag_guesses"]]
 
-        if infos not in session["flag_guesses"] :
-            tries.append(infos)
+            if infos not in session["flag_guesses"] :
+                tries.append(infos)
 
-        session["flag_guesses"] = tries
-        session["flag_cnames"] = [t[0] for t in tries]
+            session["flag_guesses"] = tries
+            session["flag_cnames"] = [t[0] for t in tries]
 
-        if infos[0] == today_flag[0] :
+            if infos[0] == today_flag[0] :
 
-            session["flag_win"] = True
+                session["flag_win"] = True
+        else:
+            flash("Please enter a correct country.")
 
     headers = ["Name", "Continent"]
 
@@ -136,18 +139,22 @@ def capital():
     if request.method == "POST" :
 
         name = request.form["guess"]
-        infos = getFlagInfo(name)
-        tries = [t for t in session["capital_guesses"]]
+        if name in names :
+            infos = getFlagInfo(name)
+            tries = [t for t in session["capital_guesses"]]
 
-        if infos not in session["capital_guesses"] :
-            tries.append(infos)
+            if infos not in session["capital_guesses"] :
+                tries.append(infos)
 
-        session["capital_guesses"] = tries
-        session["capital_cnames"] = [t[0] for t in tries]
+            session["capital_guesses"] = tries
+            session["capital_cnames"] = [t[0] for t in tries]
 
-        if infos[0] == today_capital[0] :
+            if infos[0] == today_capital[0] :
 
-            session["capital_win"] = True
+                session["capital_win"] = True
+        else:
+            flash("Please enter a correct country.")
+
 
     headers = ["Name", "Continent"]
 
@@ -162,18 +169,22 @@ def dns():
     if request.method == "POST" :
 
         name = request.form["guess"]
-        infos = getFlagInfo(name)
-        tries = [t for t in session["dns_guesses"]]
+        if name in names :
+            infos = getFlagInfo(name)
+            tries = [t for t in session["dns_guesses"]]
 
-        if infos not in session["dns_guesses"] :
-            tries.append(infos)
+            if infos not in session["dns_guesses"] :
+                tries.append(infos)
 
-        session["dns_guesses"] = tries
-        session["dns_cnames"] = [t[0] for t in tries]
+            session["dns_guesses"] = tries
+            session["dns_cnames"] = [t[0] for t in tries]
 
-        if infos[0] == today_dns[0] :
+            if infos[0] == today_dns[0] :
 
-            session["dns_win"] = True
+                session["dns_win"] = True
+
+        else:
+            flash("Please enter a correct country.")
 
     headers = ["Name", "Continent"]
 
