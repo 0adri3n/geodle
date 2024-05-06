@@ -117,7 +117,7 @@ def flag():
             if infos not in session["flag_guesses"] :
                 tries.append(infos)
 
-            session["flag_guesses"] = tries
+            session["flag_guesses"] = tries[::-1]
             session["flag_cnames"] = [t[0] for t in tries]
 
             if infos[0] == today_flag[0] :
@@ -146,7 +146,7 @@ def capital():
             if infos not in session["capital_guesses"] :
                 tries.append(infos)
 
-            session["capital_guesses"] = tries
+            session["capital_guesses"] = tries[::-1]
             session["capital_cnames"] = [t[0] for t in tries]
 
             if infos[0] == today_capital[0] :
@@ -176,7 +176,7 @@ def dns():
             if infos not in session["dns_guesses"] :
                 tries.append(infos)
 
-            session["dns_guesses"] = tries
+            session["dns_guesses"] = tries[::-1]
             session["dns_cnames"] = [t[0] for t in tries]
 
             if infos[0] == today_dns[0] :
