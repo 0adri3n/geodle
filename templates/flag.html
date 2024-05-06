@@ -45,6 +45,11 @@
             <input name="guess" type="text" placeholder="Enter your guess here..." class="guess-input" id="tags">
         </form>
         {% endif %}
+        {% if session["flag_win"] %}
+        <div class="win-message">
+            <p>🎉 Congratulations ! You guessed the flag correctly !  🎉</p>
+        </div>
+        {% endif %}
     </div>
 
     <br>
@@ -86,12 +91,6 @@
             {% endfor %}
         </tbody>
     </table>
-    {% endif %}
-
-    {% if session["flag_win"] %}
-        <div class="win-message">
-            <p>🎉 Congratulations ! You guessed the flag correctly !  🎉</p>
-        </div>
     {% endif %}
 
     

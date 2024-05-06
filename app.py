@@ -89,7 +89,7 @@ def classic():
             if infos not in session["guesses"] :
                 tries.append(infos)
 
-            session["guesses"] = tries
+            session["guesses"] = tries[::-1]
             session["classic_tcount"] = [t[0] for t in tries]
 
             if infos == classic_country :
