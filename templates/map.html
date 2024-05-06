@@ -34,15 +34,83 @@
 <header>
     <div class="header-content">
         <h1 class="site-title"><a href="/" class="link"><span class="geo">geo</span><span class="dle">dle</span></a></h1> 
-        <h2 id="welcome">Map mode coming soon...</h2>       
+        <h2 id="welcome">Welcome to map mode ! Try to find today's marker country :)</h2>       
     </div>
 </header>
 
 <div id="content">
 
+    <div id="map">
+        {{ iframe|safe }}
+    </div>
+
+    <div class="guess-container">
+        {% if not session["map_win"]%}
+        <form action="/map" method='POST'>
+            <input name="guess" type="text" placeholder="Enter your guess here..." class="guess-input" id="tags">
+        </form>
+        {% endif %}
+        {% if session["map_win"] %}
+        <div class="win-message">
+            <p>🎉 Congratulations ! You guessed the marker correctly !  🎉</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <br>
+
+    {% if session["map_guesses"] and today_marker %}
+    <table id="guesses_flag">
+        <thead>
+            <tr>
+                {% for header in headers %}
+                    <th>{{ header }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for object in session["map_guesses"] %} 
+                <tr>
+                    {% for item in object %}
+
+                            <td {% if item == today_marker[0] %} class="green-bg"
+                                {% elif item == today_marker[3] %} class="green-bg"
+                                {% elif item == '-' %} class="no-data"
+                                {% else %} class="red-bg" 
+                                {% endif %}>
+                                {% if item == '-' %}
+                                    ✖
+                                {% else %}
+                                    {{ item }}
+                                {% endif %}
+                            </td>
+                        
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
     
 </div>
 
+<script> 
+    $( function() { 
+    var availableTags = [ 
+        {% for n in names %}
+            {% if session["map_cnames"]%}
+                {% if n not in session["map_cnames"]%}
+                    "{{n}}", 
+                {% endif %}
+            {% else %} "{{n}}",
+            {% endif %} 
+        {% endfor %} 
+    ]; 
+    $( "#tags" ).autocomplete({ 
+        source: availableTags 
+    }); 
+    } ); 
+    </script> 
 
 
 <footer>

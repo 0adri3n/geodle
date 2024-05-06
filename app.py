@@ -4,6 +4,8 @@ from flask import render_template, url_for, request, flash, redirect, session
 import json
 import yaml
 
+import folium
+
 app = Flask(__name__)
 app.secret_key = "geodle"
 
@@ -19,6 +21,7 @@ classic_country = daily["classic"]
 today_flag = daily["flag"]
 today_capital = daily["capital"]
 today_dns = daily["dns"]
+today_marker = daily["map"]
 
 
 
@@ -70,6 +73,11 @@ def index():
     session["dns_win"] = False
     session["dns_guesses"] = []
     session["dns_cnames"] = []
+
+    # Map mode
+    session["map_win"] = False
+    session["map_guesses"] = []
+    session["map_cnames"] = []
 
     return render_template('index.html')
 
@@ -193,7 +201,59 @@ def dns():
 @app.route('/map', methods=["GET", "POST"])
 def map():
 
-    return render_template('map.html')
+    global today_marker
+    global names
+
+    lat, long = today_marker[1], today_marker[2]
+    
+    if not session["map_win"] :
+
+        m = folium.Map(location=[20, 20], zoom_start=2, maxZoom=20)
+        folium.TileLayer('cartodbpositronnolabels').add_to(m)
+
+        fg = folium.FeatureGroup(name="", control=False).add_to(m)
+        folium.Marker(location=(lat, long)).add_to(fg)
+
+        # set the iframe width and height
+        m.get_root().width = "600px"
+        m.get_root().height = "400px"
+        iframe = m.get_root()._repr_html_()
+
+    if request.method == "POST" :
+
+        name = request.form["guess"]
+        if name in names :
+            infos = getFlagInfo(name)
+            tries = [t for t in session["map_guesses"]]
+
+            if infos not in session["map_guesses"] :
+                tries.append(infos)
+
+            session["map_guesses"] = tries[::-1]
+            session["map_cnames"] = [t[0] for t in tries]
+
+            if infos[0] == today_marker[0] :
+
+                
+                session["map_win"] = True
+                m = folium.Map(location=[lat, long], zoom_start=7)
+                folium.TileLayer('cartodbpositronnolabels').add_to(m)
+
+                fg = folium.FeatureGroup(name=infos[0], control=False).add_to(m)
+                icon = folium.Icon(color="green", icon="ok-sign")
+                folium.Marker(location=(lat, long), popup=infos[0], icon=icon).add_to(fg)                
+
+                # set the iframe width and height
+                m.get_root().width = "600px"
+                m.get_root().height = "400px"
+                iframe = m.get_root()._repr_html_()
+
+        else:
+            flash("Please enter a correct country.")
+
+    headers = ["Name", "Continent"]
+
+    return render_template('map.html', names=names, headers=headers, today_marker=today_marker, iframe=iframe)
 
 if __name__ == '__main__': 
 
