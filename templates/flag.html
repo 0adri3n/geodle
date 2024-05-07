@@ -42,7 +42,7 @@
     <div class="guess-container">
         {% if not session["flag_win"]%}
         <form action="/flag" method='POST'>
-            <input name="guess" type="text" placeholder="Enter your guess here..." class="guess-input" id="tags">
+            <input name="guess" type="text" placeholder="Enter your guess here..." class="guess-input" id="tags" autofocus >
         </form>
         {% endif %}
         {% if session["flag_win"] %}

@@ -40,7 +40,7 @@
     <div class="guess-container">
         {% if not session["win"]%}
         <form action="/classic" method='POST'>
-            <input name="guess" type="text" placeholder="Enter your guess here..." class="guess-input" id="tags">
+            <input name="guess" type="text" placeholder="Enter your guess here..." class="guess-input" id="tags" autofocus >
         </form>
         {% endif %}
         {% if session["win"] %}

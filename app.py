@@ -98,11 +98,11 @@ def classic():
         if name in names :
             infos = getClassicInfo(name)
             tries = [t for t in session["guesses"]]
-
+            tries = tries[::-1]
             if infos not in session["guesses"] :
                 tries.append(infos)
 
-            session["guesses"] = tries[::-1]
+            session["guesses"] = tries
             session["classic_tcount"] = [t[0] for t in tries]
 
             if infos == classic_country :
@@ -126,11 +126,11 @@ def flag():
         if name in names :
             infos = getFlagInfo(name)
             tries = [t for t in session["flag_guesses"]]
-
+            tries = tries[::-1]
             if infos not in session["flag_guesses"] :
                 tries.append(infos)
 
-            session["flag_guesses"] = tries[::-1]
+            session["flag_guesses"] = tries
             session["flag_cnames"] = [t[0] for t in tries]
 
             if infos[0] == today_flag[0] :
@@ -155,11 +155,11 @@ def capital():
         if name in names :
             infos = getFlagInfo(name)
             tries = [t for t in session["capital_guesses"]]
-
+            tries = tries[::-1]
             if infos not in session["capital_guesses"] :
                 tries.append(infos)
 
-            session["capital_guesses"] = tries[::-1]
+            session["capital_guesses"] = tries
             session["capital_cnames"] = [t[0] for t in tries]
 
             if infos[0] == today_capital[0] :
@@ -185,11 +185,11 @@ def dns():
         if name in names :
             infos = getFlagInfo(name)
             tries = [t for t in session["dns_guesses"]]
-
+            tries = tries[::-1]
             if infos not in session["dns_guesses"] :
                 tries.append(infos)
 
-            session["dns_guesses"] = tries[::-1]
+            session["dns_guesses"] = tries
             session["dns_cnames"] = [t[0] for t in tries]
 
             if infos[0] == today_dns[0] :
@@ -230,11 +230,11 @@ def map():
         if name in names :
             infos = getFlagInfo(name)
             tries = [t for t in session["map_guesses"]]
-
+            tries = tries[::-1]
             if infos not in session["map_guesses"] :
                 tries.append(infos)
 
-            session["map_guesses"] = tries[::-1]
+            session["map_guesses"] = tries
             session["map_cnames"] = [t[0] for t in tries]
 
             if infos[0] == today_marker[0] :
@@ -327,6 +327,8 @@ def checkTimes():
 
 
 def changeGuesses():
+
+    print("Guesses changed | " + str(datetime.now().time()))
 
     global daily
     global classic_country
