@@ -78,8 +78,8 @@
                             <td {% if item == classic_country[0] %} class="green-bg"
                                 {% elif item|int == classic_country[1]|int %} class="green-bg" 
                                 {% elif item == classic_country[2] %} class="green-bg"
-                                {% elif item|int == classic_country[3]|int %} class="green-bg" 
-                                {% elif item|int == classic_country[4]|int %} class="green-bg" 
+                                {% elif item.replace(" ", "")|int == classic_country[3].replace(" ", "")|int %} class="green-bg" 
+                                {% elif item.replace(" ", "")|int == classic_country[4].replace(" ", "")|int %} class="green-bg" 
                                 {% elif item == classic_country[5] %} class="green-bg"
                                 {% elif item == '-' %} class="no-data"
                                 {% else %} class="red-bg" 
@@ -97,15 +97,15 @@
                                         🔼
                                     {% endif %}
                                 {% elif loop.index0 == 3 and item != '-' %}
-                                    {% if item|int > classic_country[3]|int %}
+                                    {% if item.replace(" ", "")|int > classic_country[3].replace(" ", "")|int %}
                                         🔽
-                                    {% elif item|int < classic_country[3]|int %}
+                                    {% elif item.replace(" ", "")|int < classic_country[3].replace(" ", "")|int %}
                                         🔼
                                     {% endif %}
                                 {% elif loop.index0 == 4 and item != '-' %}
-                                    {% if item|int > classic_country[4]|int %}
+                                    {% if item.replace(" ", "")|int > classic_country[4].replace(" ", "")|int %}
                                         🔽
-                                    {% elif item|int < classic_country[4]|int %}
+                                    {% elif item.replace(" ", "")|int < classic_country[4].replace(" ", "")|int %}
                                         🔼
                                     {% endif %}
                                 {% elif loop.index0 == 5 and item != '-' %}
