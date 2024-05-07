@@ -67,28 +67,32 @@ today_marker = daily["map"]
 @app.route('/')
 def index():
 
-    # Initialisation des cookies
     # Classic mode
+
     session["guesses"] = []
     session["win"] = False
     session["classic_tcount"] = []
-    
+
     # Flag mode
+
     session["flag_win"] = False
     session["flag_guesses"] = []
     session["flag_cnames"] = []
 
     # Capital mode
+
     session["capital_win"] = False
     session["capital_guesses"] = []
     session["capital_cnames"] = []
 
     # DNS mode
+
     session["dns_win"] = False
     session["dns_guesses"] = []
     session["dns_cnames"] = []
 
     # Map mode
+
     session["map_win"] = False
     session["map_guesses"] = []
     session["map_cnames"] = []
@@ -388,7 +392,7 @@ def changeGuesses():
 
 
 if __name__ == '__main__': 
-
+    changeGuesses()
     print("\n---------------------------------------------------------------------\n")
     print("geodle server running\n")
     print("---------------------------------------------------------------------\n")

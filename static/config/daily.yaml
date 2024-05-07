@@ -1,26 +1,26 @@
 afternoon_edit: true
 capital:
-- Switzerland
-- Europe
-- Bern
-classic:
-- Kyrgyzstan
-- '996'
+- Sri Lanka
 - Asia
-- 6047800
-- 199951
-- UTC+06:00
+- Colombo
+classic:
+- Canada
+- '1'
+- Americas
+- 36155487
+- 9984670
+- UTC-08:00
 dns:
-- Spain
-- Europe
-- .es
+- Saint Vincent and the Grenadines
+- Americas
+- .vc
 flag:
-- Swaziland
-- Africa
-- SZ
+- Vanuatu
+- Oceania
+- VU
 map:
-- Algeria
-- 28
-- 3
-- Africa
+- Tuvalu
+- -8
+- 178
+- Oceania
 morning_edit: false
