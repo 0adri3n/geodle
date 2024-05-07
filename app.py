@@ -12,19 +12,6 @@ import random
 app = Flask(__name__)
 app.secret_key = "geodle"
 
-f = open("static/data/data.json", "r", encoding="utf-8")
-countries = json.loads(f.read())
-names = [i["name"] for i in countries]
-f.close()
-
-daily_f = open("static/config/daily.yaml", "r", encoding="utf-8")
-daily = yaml.safe_load(daily_f)
-daily_f.close()
-classic_country = daily["classic"]
-today_flag = daily["flag"]
-today_capital = daily["capital"]
-today_dns = daily["dns"]
-today_marker = daily["map"]
 
 
 def insert_spaces(number):
@@ -63,6 +50,21 @@ def getFlagInfo(name):
             break
     return country_info
 
+f = open("static/data/data.json", "r", encoding="utf-8")
+countries = json.loads(f.read())
+names = [i["name"] for i in countries]
+f.close()
+
+daily_f = open("static/config/daily.yaml", "r", encoding="utf-8")
+daily = yaml.safe_load(daily_f)
+daily_f.close()
+classic_country = getClassicInfo(daily["classic"][0])
+print(classic_country)
+print(daily["classic"])
+today_flag = daily["flag"]
+today_capital = daily["capital"]
+today_dns = daily["dns"]
+today_marker = daily["map"]
 
 @app.route('/')
 def index():
@@ -115,9 +117,10 @@ def classic():
 
             session["guesses"] = tries
             session["classic_tcount"] = [t[0] for t in tries]
-
+            print(infos)
+            print(classic_country)
+            print(session["guesses"])
             if infos == classic_country :
-
                 session["win"] = True
         else:
             flash("Please enter a correct country.")
