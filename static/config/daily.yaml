@@ -1,26 +1,26 @@
 afternoon_edit: true
 capital:
-- Antigua and Barbuda
-- Americas
-- Saint Johns
-classic:
-- San Marino
-- '378'
+- Switzerland
 - Europe
-- 33005
-- 61
-- UTC+01:00
+- Bern
+classic:
+- Kyrgyzstan
+- '996'
+- Asia
+- 6047800
+- 199951
+- UTC+06:00
 dns:
-- Qatar
-- Asia
-- .qa
+- Spain
+- Europe
+- .es
 flag:
-- Qatar
-- Asia
-- QA
+- Swaziland
+- Africa
+- SZ
 map:
-- Uganda
-- 1
-- 32
+- Algeria
+- 28
+- 3
 - Africa
 morning_edit: false
