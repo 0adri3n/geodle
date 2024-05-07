@@ -27,6 +27,17 @@ today_dns = daily["dns"]
 today_marker = daily["map"]
 
 
+def insert_spaces(number):
+    number_str = str(number)
+    if len(number_str) <= 3:
+        return number_str
+    else:
+        parts = []
+        while len(number_str) > 3:
+            parts.append(number_str[-3:])
+            number_str = number_str[:-3]
+        parts.append(number_str)
+        return " ".join(reversed(parts))
 
 def getClassicInfo(name):
 
@@ -36,8 +47,8 @@ def getClassicInfo(name):
             country_info.append(country["name"])
             country_info.append(country["callingCodes"][0] if country["callingCodes"] else "-")
             country_info.append(country["region"])
-            country_info.append(country["population"])
-            country_info.append(country["area"] if country["area"] else "-")
+            country_info.append(insert_spaces(country["population"]))
+            country_info.append(insert_spaces(country["area"] if country["area"] else "-"))
             country_info.append(country["timezones"][0] if country["timezones"] else "-")
             break
     return country_info
@@ -98,9 +109,9 @@ def classic():
         if name in names :
             infos = getClassicInfo(name)
             tries = [t for t in session["guesses"]]
-            tries = tries[::-1]
+            
             if infos not in session["guesses"] :
-                tries.append(infos)
+                tries.insert(0, infos)
 
             session["guesses"] = tries
             session["classic_tcount"] = [t[0] for t in tries]
@@ -126,9 +137,9 @@ def flag():
         if name in names :
             infos = getFlagInfo(name)
             tries = [t for t in session["flag_guesses"]]
-            tries = tries[::-1]
+
             if infos not in session["flag_guesses"] :
-                tries.append(infos)
+                tries.insert(0, infos)
 
             session["flag_guesses"] = tries
             session["flag_cnames"] = [t[0] for t in tries]
@@ -155,9 +166,9 @@ def capital():
         if name in names :
             infos = getFlagInfo(name)
             tries = [t for t in session["capital_guesses"]]
-            tries = tries[::-1]
+
             if infos not in session["capital_guesses"] :
-                tries.append(infos)
+                tries.insert(0, infos)
 
             session["capital_guesses"] = tries
             session["capital_cnames"] = [t[0] for t in tries]
@@ -185,9 +196,8 @@ def dns():
         if name in names :
             infos = getFlagInfo(name)
             tries = [t for t in session["dns_guesses"]]
-            tries = tries[::-1]
             if infos not in session["dns_guesses"] :
-                tries.append(infos)
+                tries.insert(0, infos)
 
             session["dns_guesses"] = tries
             session["dns_cnames"] = [t[0] for t in tries]
@@ -230,9 +240,9 @@ def map():
         if name in names :
             infos = getFlagInfo(name)
             tries = [t for t in session["map_guesses"]]
-            tries = tries[::-1]
+
             if infos not in session["map_guesses"] :
-                tries.append(infos)
+                tries.insert(0, infos)
 
             session["map_guesses"] = tries
             session["map_cnames"] = [t[0] for t in tries]
