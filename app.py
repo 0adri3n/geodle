@@ -116,7 +116,6 @@ def classic():
             
             if infos not in session["guesses"] :
                 tries.insert(0, infos)
-
             session["guesses"] = tries
             session["classic_tcount"] = [t[0] for t in tries]
 
