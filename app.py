@@ -14,18 +14,6 @@ app.secret_key = "geodle"
 
 
 
-def insert_spaces(number):
-    number_str = str(number)
-    if len(number_str) <= 3:
-        return number_str
-    else:
-        parts = []
-        while len(number_str) > 3:
-            parts.append(number_str[-3:])
-            number_str = number_str[:-3]
-        parts.append(number_str)
-        return " ".join(reversed(parts))
-
 def getClassicInfo(name):
 
     country_info = []
@@ -34,8 +22,8 @@ def getClassicInfo(name):
             country_info.append(country["name"])
             country_info.append(country["callingCodes"][0] if country["callingCodes"] else "-")
             country_info.append(country["region"])
-            country_info.append(insert_spaces(country["population"]))
-            country_info.append(insert_spaces(country["area"] if country["area"] else "-"))
+            country_info.append(country["population"])
+            country_info.append(country["area"] if country["area"] else "-")
             country_info.append(country["timezones"][0] if country["timezones"] else "-")
             break
     return country_info
