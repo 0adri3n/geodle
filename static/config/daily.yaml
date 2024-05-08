@@ -1,26 +1,26 @@
 afternoon_edit: false
 capital:
-- Nigeria
-- Africa
-- Abuja
-classic:
-- Honduras
-- '504'
-- Americas
-- 8576532
-- 112492
-- UTC-06:00
-dns:
-- Togo
-- Africa
-- .tg
-flag:
-- Iceland
+- Jersey
 - Europe
-- IS
+- Saint Helier
+classic:
+- Cameroon
+- '237'
+- Africa
+- 22709892
+- 475442
+- UTC+01:00
+dns:
+- Libya
+- Africa
+- .ly
+flag:
+- Denmark
+- Europe
+- DK
 map:
-- Korea (Democratic People s Republic of)
-- 40
-- 127
-- Asia
+- Russian Federation
+- 60
+- 100
+- Europe
 morning_edit: false
